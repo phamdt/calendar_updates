@@ -14,11 +14,23 @@ div.fc-toolbar, div.form-group {
   margin-top: 10px;
 }
 
-div select.form-control, div input.form-control {
+div select.form-control, div input.form-control,
+div.input-group {
   width: 80%;
-  height: 25px;
 }
 
-div.row:last-child {
+div.input-group input {
+  font-size: 10px;
+}
+
+div.col-md-4 .row:last-child {
   margin-top: 50px
+}
+
+div.panel-default {
+  border-color: green;
+}
+
+em {
+  color: green;
 }
