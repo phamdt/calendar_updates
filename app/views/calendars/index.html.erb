@@ -1,23 +1,42 @@
-<h1>Listing calendars</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @calendars.each do |calendar| %>
-      <tr>
-        <td><%= link_to 'Show', calendar %></td>
-        <td><%= link_to 'Edit', edit_calendar_path(calendar) %></td>
-        <td><%= link_to 'Destroy', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Calendar', new_calendar_path %>
+<div ng-controller="CalendarCtrl" class="container">
+  <h4>Calendar</h4>
+  <div class="row">
+    <div class="col-md-8 calendar">
+      <div ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Schedule Field Call from Ticket</h5>
+          (will email the customer)
+          <div>
+            Select a ticket to schedule or re-schedule
+            <div class="form-group">
+              <select ng-model="ticket" name="ticket" ng-options="label for (k, v) in tickets" class="form-control"></select>
+            </div>
+            <div class="form-group">
+              <label>Appointment Time</label>
+              <input type="text" name="apptTime" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Select which tech</label>
+              <select ng-model="tech" name="tech" ng-options="label for tech in techs" class="form-control"></select>
+            </div>
+            <button class="btn btn-success">Schedule it</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h5>Notes:</h5>
+              Drag an item to change the appointment.<br>
+              This <em>WILL</em> email the customer or send them a text message.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
