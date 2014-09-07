@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= bootstrap-sprockets
+//= require angular
+//= require angular-ui-bootstrap
+//= require moment.min
+//= require fullcalendar.min
+//= require angular-ui-calendar
 //= require_tree .

@@ -27,7 +27,14 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular-ui-bootstrap-rails (0.11.0)
+    angular-ui-calendar-rails (0.8.1)
+    angularjs-rails (1.2.22)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (3.0.1.20140826)
+      execjs
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
     builder (3.2.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -113,7 +120,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  coffee-rails (~> 4.0.0)
+  angular-ui-bootstrap-rails (~> 0.11.0)
+  angular-ui-calendar-rails (~> 0.8.1)
+  angularjs-rails (~> 1.2.22)
+  autoprefixer-rails (~> 3.0.1.20140826)
+  bootstrap-sass (~> 3.2.0.2)
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.1.5)
