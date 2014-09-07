@@ -24,6 +24,8 @@ gem 'angular-ui-bootstrap-rails', '~> 0.11.0'
 gem 'angular-ui-calendar-rails', '~> 0.8.1'
 gem 'autoprefixer-rails', '~> 3.0.1.20140826'
 
+gem 'twilio-ruby', '~> 3.12.2'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
