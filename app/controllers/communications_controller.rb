@@ -3,7 +3,13 @@ class CommunicationsController < ApplicationController
     message = params[:message]
     phone_number = params[:phone_number]
 
-    response = Communication.twilio_send(phone_number, message)
-    render json: response
+    twilio_response = Communication.twilio_send(phone_number, message)
+    render json: message
+  end
+
+  def email_calendar_update
+    user = params[:user]
+    UserMailer.email_calendar_update(user)
+    render json: user
   end
 end
