@@ -5,12 +5,20 @@ class CommunicationsControllerTest < ActionController::TestCase
     message = 'hallo!'
     phone_number = ENV['TWILIO_TEST_NUMBER']
 
-    # this is generating a stack trace error in the the test, but it
-    # seems to be working just fine
     post :text_message, 'phone_number' => phone_number, 'message' => message
 
-    puts 'response body', response.body
     assert_response :success
     assert_equal message, response.body
+  end
+
+  test "post to /email/calendar_update sends user email" do
+    user = {
+      name: 'Christopher Herman',
+      email: 'c.herman@example.com',
+      repair_item: 'macbook',
+      rescheduled_time: DateTime.now()
+    }
+    post :email_calendar_update, user: user
+    assert_response :success
   end
 end
