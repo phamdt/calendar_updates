@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= bootstrap-sprockets
+//= require bootstrap
+//= require bootstrap-sprockets
 //= require angular
 //= require angular-ui-bootstrap
 //= require moment.min
