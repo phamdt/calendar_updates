@@ -1,6 +1,6 @@
 var app = angular.module('RepairShoprCalendar', ['ui.calendar', 'ui.bootstrap']);
 
-app.controller('CalendarCtrl', ['$scope', function($scope) {
+app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
 
   // fake data so it always shows a date on load
   var date = new Date();
@@ -13,6 +13,8 @@ app.controller('CalendarCtrl', ['$scope', function($scope) {
   $scope.tickets = [
     {
       'title': 'Christopher Herman - macbook',
+      'name': 'Christopher',
+      'repair_item': 'macbook',
       'start': new Date(y, m, d, STARTTIME),
       'end': new Date(y, m, d, ENDTIME)
     }
@@ -26,23 +28,36 @@ app.controller('CalendarCtrl', ['$scope', function($scope) {
   // default
   $scope.tech = $scope.techs[0];
 
-  /* alert on Drop */
-   $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
+  $scope.emailCalendarUpdate = function(event) {
     $scope.ticket['start'] = event.start.format();
     $scope.ticket['end'] = event.end.format();
+
+    var formattedStart = event.start.format('MM/DD/YYYY hh:mma');
+    var formattedEnd = event.end.format('hh:mma');
+    $scope.ticket['rescheduled_time'] = formattedStart + ' - ' + formattedEnd;
+
+    var token = $("meta[name='csrf-token']").attr('content');
+    console.log($scope.ticket);
+    $http({
+      method: 'POST',
+      url: 'email/calendar_update',
+      data: {'user': $scope.ticket, 'authenticity_token': token}
+    }).
+    success(function(data, status, headers, config) {
+      console.log('success', data, status, headers, config);
+      $('#myModal').modal('hide')
+    }).
+    error(function(data, status, headers, config) {
+      console.log('error', data, status, headers, config);
+    });
   };
 
-  // /* add custom event*/
-  // $scope.addEvent = function() {
-  //   $scope.events.push({
-  //     title: 'Open Sesame',
-  //     start: new Date(y, m, d),
-  //     end: new Date(y, m, d),
-  //     className: ['openSesame']
-  //   });
-  // };
+  $scope.openModal = function(event, delta, revertFunc, jsEvent, ui, view) {
+    $scope.dropEvent = event;
+    $('#myModal').modal();
+  };
 
-  // /* config object */
+  /* config object */
   $scope.uiConfig = {
     calendar: {
       defaultView: 'agendaWeek',
@@ -55,7 +70,7 @@ app.controller('CalendarCtrl', ['$scope', function($scope) {
       },
       minTime: '09:00:00',
       maxTime: '18:00:00',
-      eventDrop: $scope.alertOnDrop
+      eventDrop: $scope.openModal
     }
   };
 
