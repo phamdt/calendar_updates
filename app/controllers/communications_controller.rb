@@ -9,7 +9,8 @@ class CommunicationsController < ApplicationController
 
   def email_calendar_update
     user = params[:user]
-    UserMailer.email_calendar_update(user)
+    #pretend this saves to db
+    UserMailer.email_calendar_update(user).deliver
     render json: user
   end
 end
