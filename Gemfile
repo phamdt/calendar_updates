@@ -9,8 +9,7 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -18,6 +17,15 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+
+gem 'bootstrap-sass', '~> 3.2.0.2'
+gem 'angularjs-rails', '~> 1.2.22'
+gem 'angular-ui-bootstrap-rails', '~> 0.11.0'
+gem 'angular-ui-calendar-rails', '~> 0.8.1'
+gem 'autoprefixer-rails', '~> 3.0.1.20140826'
+
+gem 'twilio-ruby', '~> 3.12.2'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
