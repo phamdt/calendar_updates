@@ -20,4 +20,5 @@
 //= require moment.min
 //= require fullcalendar.min
 //= require angular-ui-calendar
+//= require spin.min
 //= require_tree .

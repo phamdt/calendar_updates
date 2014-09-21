@@ -1,6 +1,5 @@
-var app = angular.module('RepairShoprCalendar', ['ui.calendar', 'ui.bootstrap']);
-
-app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
+angular.module('RepairShoprCalendar', ['ui.calendar', 'ui.bootstrap'])
+.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
 
   // fake data so it always shows a date on load
   var date = new Date();
@@ -28,16 +27,25 @@ app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
   // default
   $scope.tech = $scope.techs[0];
 
-  $scope.emailCalendarUpdate = function(event) {
-    $scope.ticket['start'] = event.start.format();
-    $scope.ticket['end'] = event.end.format();
+
+  var updateTicket = function(ticket, event) {
+    ticket['start'] = event.start.format();
+    ticket['end'] = event.end.format();
 
     var formattedStart = event.start.format('MM/DD/YYYY hh:mma');
     var formattedEnd = event.end.format('hh:mma');
-    $scope.ticket['rescheduled_time'] = formattedStart + ' - ' + formattedEnd;
+    ticket['rescheduled_time'] = formattedStart + ' - ' + formattedEnd;
+
+    return ticket;
+  };
+
+  $scope.showSendBtn = true;
+  $scope.emailCalendarUpdate = function(event) {
+    $scope.showSendBtn = false;
+    $scope.ticket = updateTicket($scope.ticket, event);
 
     var token = $("meta[name='csrf-token']").attr('content');
-    console.log($scope.ticket);
+
     $http({
       method: 'POST',
       url: 'email/calendar_update',
@@ -49,6 +57,9 @@ app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
     }).
     error(function(data, status, headers, config) {
       console.log('error', data, status, headers, config);
+    }).
+    finally(function() {
+      $scope.showSendBtn = true;
     });
   };
 
@@ -75,4 +86,29 @@ app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
   };
 
   $scope.eventSources = [$scope.tickets];
-}]);
+}])
+.directive('spinner', function() {
+  return function(scope, elem, attrs) {
+    var elId = attrs.id;
+    var opts = {
+      lines: 13,            // The number of lines to draw
+      length: 10,           // The length of each line
+      width: 3,            // The line thickness
+      radius: 5,           // The radius of the inner circle
+      corners: 1,           // Corner roundness (0..1)
+      rotate: 0,            // The rotation offset
+      direction: 1,         // 1: clockwise, -1: counterclockwise
+      color: '#000',        // #rgb or #rrggbb or array of colors
+      speed: 1,             // Rounds per second
+      trail: 60,            // Afterglow percentage
+      shadow: false,        // Whether to render a shadow
+      hwaccel: false,       // Whether to use hardware acceleration
+      className: 'spinner', // The CSS class to assign to the spinner
+      zIndex: 2e9,          // The z-index (defaults to 2000000000)
+      top: '50%',           // Top position relative to parent
+      left: '50%'           // Left position relative to parent
+    };
+    var target = document.getElementById(elId);
+    var spinner = new Spinner(opts).spin(target);
+  };
+});
